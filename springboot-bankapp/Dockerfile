@@ -3,6 +3,9 @@
 # Use Maven with OpenJDK 17 as the base image for the builder stage
 FROM maven:3.8.3-openjdk-17 as builder
 
+# Add labels to the image to filter out if we have multiple application running
+LABEL app=bankapp
+
 # Set the working directory to /app in the container
 WORKDIR /app
 
@@ -15,7 +18,7 @@ RUN mvn clean install -DSkipTests=true
 #------------ Stage 2 ------------------
 
 # Use Maven with a slim image as the base image for the final stage
-FROM maven:3.8.3-slim
+FROM openjdk:17-alpine
 
 # Set the working directory to /app in the container
 WORKDIR /app

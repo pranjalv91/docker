@@ -31,9 +31,6 @@ RUN apt-get update && \
 # Copy Python dependencies from the previous builder stage to the final image
 COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 
-# Expose port 8080 for external access
-EXPOSE 8080
-
 # Copy the local directory contents to the '/app' directory in the final image
 COPY . .
 

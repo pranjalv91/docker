@@ -21,9 +21,6 @@ RUN pip install mysqlclient
 # Install Python dependencies from the 'requirements.txt' file with caching disabled
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8080 to allow external access
-EXPOSE 8080
-
 # Copy the local code (source files) to the working directory in the container
 COPY . .
 
