@@ -1,0 +1,54 @@
+#Repo Link: https://github.com/LondheShubham153/two-tier-flask-app
+
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mydb
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - twotier
+    healthcheck:
+      test: ["CMD", "mysqldbadmin" ,  "ping" ,  "-h" ,  "localhost" ,  "-uroot" ,  "-padmin"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
+      start_period: 60s
+
+  flaskapp:
+    build:
+      context: .
+    container_name: flaskapp
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: root
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: mydb
+    volumes:
+      - flask-data:/app
+    ports:
+      - 5000:5000
+    networks:
+      - twotier
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000 || exit 1"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
+      start_period: 60s
+
+networks:
+  twotier:
+
+volumes:
+  flask-data:
+  mysql-data:

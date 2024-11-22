@@ -1,0 +1,33 @@
+# Start of Single Stage build
+
+# Use the Python 3.9 base image for the Docker container
+FROM python:3.9
+
+# Set the working directory inside the container to '/app'
+WORKDIR /app
+
+# Install python build dependencies
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y gcc default-libmysqlclient-dev pkg-config && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the local 'requirements.txt' file to the container's working directory
+COPY requirements.txt .
+
+# Install the 'mysqlclient' Python package
+RUN pip install mysqlclient
+
+# Install Python dependencies from the 'requirements.txt' file with caching disabled
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose port 8080 to allow external access
+EXPOSE 8080
+
+# Copy the local code (source files) to the working directory in the container
+COPY . .
+
+# Set the command to run when the container starts: start the Python application ('app.py')
+CMD ["python", "app.py"]
+
+# End of Single Stage build

@@ -1,0 +1,18 @@
+#--------- Single Stage ----------------
+# Use the Maven 3.8.3 with OpenJDK 17 base image for building the application
+FROM maven:3.8.3-openjdk-17
+
+# Set the working directory inside the container to '/app'
+WORKDIR /app
+
+# Copy the application source code from the host machine to the '/app' directory in the container
+COPY . /app
+
+# Run the Maven build process to clean and install the application dependencies
+RUN mvn clean install
+
+# Expose port 8080 to allow incoming connections to the application
+EXPOSE 8080
+
+# Specify the entry point command to execute when the container starts
+ENTRYPOINT ["java", "-jar", "bankapp.jar"]
