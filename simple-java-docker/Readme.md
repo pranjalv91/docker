@@ -10,13 +10,13 @@
 1. Navigate to the cloned project directory
 
 ```bash
-cd simple-java-docker
+        cd simple-java-docker
 ```
 
 2. Clone the 'simple-java-docker' project using the following command
 
 ```bash
-git clone <https://github.com/LondheShubham153/simple-java-docker.git>
+    git clone https://github.com/LondheShubham153/simple-java-docker.git
 ```
 
 ## Build Docker Image
