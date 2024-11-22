@@ -29,7 +29,7 @@
    docker build -t bankapp-mini .
 ```
 
-- Login to docker hub and enter the personal access token when prompted 
+- Login to docker hub and enter the personal access token when prompted
 
 ```bash
    docker login -u pranjalv91
